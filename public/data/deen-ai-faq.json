@@ -1,0 +1,185 @@
+{
+  "bot_profile": {
+    "name": "DEEN AI Assistant",
+    "role": "Virtual Order & Sales Desk",
+    "status": "Online \u2022 Instant Responses",
+    "showroom_contact": "Muhammad Aslam",
+    "showroom_phone": "0300-7769932",
+    "whatsapp_number": "03007769932",
+    "whatsapp_url": "https://wa.me/923007769932?text=Assalam%20o%20Alaikum%20DEEN%20Electronics,%20I%20would%20like%20to%20speak%20with%20a%20human%20sales%20representative."
+  },
+  "greeting": {
+    "message": "Assalam o Alaikum! Welcome to DEEN Electronics Lahore. I am your Virtual AI Sales Assistant. How can I help you with our appliances, cooling, TVs, or scooters today?",
+    "suggested_questions": [
+      "Where is your Lahore showroom located?",
+      "Do you deliver nationwide across Pakistan?",
+      "What payment methods do you accept?",
+      "Do products come with official warranty?",
+      "What product categories do you offer?",
+      "Talk to a human representative on WhatsApp"
+    ]
+  },
+  "qa_pairs": [
+    {
+      "id": "showroom_location",
+      "question": "Where is your Lahore showroom located and what are your hours?",
+      "keywords": [
+        "location",
+        "address",
+        "where",
+        "showroom",
+        "shop",
+        "store",
+        "visit",
+        "bata pur",
+        "manawan",
+        "plaza",
+        "hours",
+        "timing",
+        "open",
+        "close",
+        "time"
+      ],
+      "answer": "Our Lahore showroom is located at **Muhammad Amin's Plaza, Main Grand Trunk (GT) Road, near Shell Petrol Pump, Manawan, Bata Pur, Lahore**.\n\nWe are open daily from **10:00 AM to 10:00 PM**.",
+      "action": null
+    },
+    {
+      "id": "delivery_policy",
+      "question": "Do you offer nationwide delivery across Pakistan?",
+      "keywords": [
+        "delivery",
+        "shipping",
+        "deliver",
+        "courier",
+        "charges",
+        "freight",
+        "karachi",
+        "islamabad",
+        "rawalpindi",
+        "peshawar",
+        "multan",
+        "nationwide"
+      ],
+      "answer": "Yes, we provide nationwide delivery across Pakistan, subject to destination serviceability.\n\n\u2022 **Standard parcel delivery**: Kitchen appliances, fans, geysers, and small electronics.\n\u2022 **Bulky item freight**: Scooters, refrigerators, air conditioners, and furniture require special handling and freight delivery.",
+      "action": null
+    },
+    {
+      "id": "payment_methods",
+      "question": "What payment options do you support?",
+      "keywords": [
+        "payment",
+        "pay",
+        "cod",
+        "cash on delivery",
+        "bank transfer",
+        "jazzcash",
+        "easypaisa",
+        "advance",
+        "how to pay"
+      ],
+      "answer": "We support flexible payment options:\n\n1. **Cash on Delivery (COD)** (confirmed via phone/WhatsApp, subject to serviceability)\n2. **Direct Bank Transfer**\n3. **JazzCash & Easypaisa** mobile accounts",
+      "action": null
+    },
+    {
+      "id": "official_warranty",
+      "question": "Do you offer official brand warranties on electronics?",
+      "keywords": [
+        "warranty",
+        "guarantee",
+        "official",
+        "claim",
+        "compressor",
+        "motor",
+        "parts",
+        "service",
+        "haier",
+        "dawlance",
+        "tcl"
+      ],
+      "answer": "Yes! All verified appliances come with official manufacturer warranty coverage (for example, up to 10\u201312 years on inverter compressors and 1\u20132 years on motors and screens from official brands).",
+      "action": null
+    },
+    {
+      "id": "electric_scooters",
+      "question": "Tell me about the electric scooters available for purchase.",
+      "keywords": [
+        "scooter",
+        "scooters",
+        "electric scooter",
+        "bike",
+        "crown",
+        "battery",
+        "lithium",
+        "km",
+        "mileage",
+        "speed"
+      ],
+      "answer": "We offer the **Crown Electric Eco-Scooter 1200W (Lithium Battery Edition)** featuring a 72V 30Ah pack and 75\u201385 km range per charge. Because scooters are bulky items, separate delivery arrangements and freight charges apply.",
+      "action": null
+    },
+    {
+      "id": "product_categories",
+      "question": "What product categories do you sell?",
+      "keywords": [
+        "categories",
+        "products",
+        "items",
+        "sell",
+        "ac",
+        "fridge",
+        "refrigerator",
+        "tv",
+        "led",
+        "washing machine",
+        "kitchen",
+        "fan",
+        "geyser",
+        "furniture",
+        "foam"
+      ],
+      "answer": "We carry 12 confirmed categories:\n\n1. Inverter Air Conditioners\n2. Refrigerators & Freezers\n3. Washing Machines\n4. Smart 4K LED TVs\n5. Kitchen Appliances & Food Processors\n6. Fans (Inverter & Deluxe)\n7. Instant Gas Geysers & Water Dispensers\n8. Electric Scooters\n9. Molded Foam Products\n10. Home & Office Furniture\n11. Home Appliances\n12. Other Electronics",
+      "action": null
+    },
+    {
+      "id": "booking_and_pricing",
+      "question": "How can I place an order or get a price quote?",
+      "keywords": [
+        "price",
+        "pricing",
+        "quote",
+        "order",
+        "book",
+        "booking",
+        "buy",
+        "purchase",
+        "discount",
+        "deal",
+        "how to buy"
+      ],
+      "answer": "To place an order or confirm current commercial showroom pricing, you can book directly through our WhatsApp Order Desk. Our team confirms availability and issues your invoice right away.",
+      "action": "human_handoff"
+    },
+    {
+      "id": "talk_to_human",
+      "question": "I want to speak to a real human representative.",
+      "keywords": [
+        "human",
+        "real person",
+        "person",
+        "agent",
+        "representative",
+        "aslam",
+        "owner",
+        "call",
+        "whatsapp",
+        "speak",
+        "live",
+        "talk to human",
+        "connect me",
+        "real human"
+      ],
+      "answer": "Connecting you directly with Muhammad Aslam and our human sales specialists at our Lahore Showroom on WhatsApp...",
+      "action": "human_handoff"
+    }
+  ]
+}
