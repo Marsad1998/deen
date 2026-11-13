@@ -181,6 +181,53 @@
             </div>
         </div>
 
+        <!-- 5. Categories & Brands Display Manager -->
+        <div class="bg-white rounded-3xl border border-slate-200 p-6 shadow-xs flex flex-col justify-between hover:border-blue-300 transition-all sm:col-span-2">
+            <div class="space-y-3">
+                <div class="flex items-center justify-between">
+                    <span class="px-2.5 py-1 rounded-lg text-[10px] font-black uppercase tracking-wider bg-purple-50 text-purple-700 border border-purple-200">
+                        Section 5 • Navigation &amp; Homepage Grids
+                    </span>
+                    <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-purple-100 text-purple-800">
+                        Full Curation
+                    </span>
+                </div>
+
+                <div>
+                    <h2 class="text-lg font-bold text-slate-900">Categories &amp; Brands Storefront Display</h2>
+                    <p class="text-xs text-slate-500 mt-1">
+                        Control which categories appear in the top desktop navigation bar (avoid cluttering the navbar), customize headings for homepage categories, and select which authorized brands (Haier, Dawlance, Gree, etc.) are highlighted in the homepage Brand Showcase.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2 text-xs">
+                    <div class="p-3 rounded-2xl bg-slate-50 border border-slate-100">
+                        <span class="text-slate-400 block text-[11px]">Navbar Categories:</span>
+                        <span class="font-bold text-slate-900 text-sm mt-0.5 block">User-Controlled Links</span>
+                        <span class="text-[10px] text-slate-500 mt-0.5 block">Select only primary categories for header</span>
+                    </div>
+                    <div class="p-3 rounded-2xl bg-slate-50 border border-slate-100">
+                        <span class="text-slate-400 block text-[11px]">Homepage Categories:</span>
+                        <span class="font-bold text-slate-900 text-sm mt-0.5 block">Custom Title &amp; Grid</span>
+                        <span class="text-[10px] text-slate-500 mt-0.5 block">Enable/disable &amp; select featured items</span>
+                    </div>
+                    <div class="p-3 rounded-2xl bg-slate-50 border border-slate-100">
+                        <span class="text-slate-400 block text-[11px]">Homepage Brands:</span>
+                        <span class="font-bold text-slate-900 text-sm mt-0.5 block">Official Partner Logos</span>
+                        <span class="text-[10px] text-slate-500 mt-0.5 block">Authorized dealer trust badges</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pt-5 mt-4 border-t border-slate-100 flex items-center justify-between">
+                <span class="text-xs text-slate-400">Header Nav &amp; Homepage Showcases</span>
+                <a href="{{ route('admin.cms.display') }}" class="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-xs transition-colors flex items-center space-x-1.5">
+                    <span>Manage Categories &amp; Brands</span>
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                </a>
+            </div>
+        </div>
+
     </div>
 
 </div>

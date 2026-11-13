@@ -150,16 +150,47 @@
                            class="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-slate-900 text-xs sm:text-sm focus:outline-none focus:border-rose-600">
                 </div>
 
-                <!-- Active Status -->
-                <div class="flex items-center pt-6">
-                    <label class="inline-flex items-center space-x-2.5 cursor-pointer">
-                        <input type="checkbox" 
-                               name="is_active" 
-                               value="1" 
-                               {{ old('is_active', '1') == '1' ? 'checked' : '' }}
-                               class="rounded border-slate-300 text-rose-600 focus:ring-rose-500">
-                        <span class="text-xs font-bold text-slate-800">Publish immediately on storefront</span>
-                    </label>
+                <!-- Active Status & Display Placements -->
+                <div class="sm:col-span-2 pt-4 border-t border-slate-100 space-y-3">
+                    <span class="block text-xs font-bold text-slate-700 uppercase tracking-wider">Storefront Placements &amp; Visibility</span>
+                    
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                        <label class="flex items-center p-3 rounded-2xl border border-slate-200 bg-slate-50/50 hover:bg-slate-50 cursor-pointer transition-colors">
+                            <input type="checkbox" 
+                                   name="is_active" 
+                                   value="1" 
+                                   {{ old('is_active', '1') == '1' ? 'checked' : '' }}
+                                   class="rounded border-slate-300 text-rose-600 focus:ring-rose-500">
+                            <div class="ml-2.5">
+                                <span class="text-xs font-bold text-slate-800 block">Active Status</span>
+                                <span class="text-[10px] text-slate-400 block">Publish on storefront</span>
+                            </div>
+                        </label>
+
+                        <label class="flex items-center p-3 rounded-2xl border border-slate-200 bg-slate-50/50 hover:bg-slate-50 cursor-pointer transition-colors">
+                            <input type="checkbox" 
+                                   name="show_in_nav" 
+                                   value="1" 
+                                   {{ old('show_in_nav', '0') == '1' ? 'checked' : '' }}
+                                   class="rounded border-slate-300 text-indigo-600 focus:ring-indigo-500">
+                            <div class="ml-2.5">
+                                <span class="text-xs font-bold text-slate-800 block">Desktop Navbar</span>
+                                <span class="text-[10px] text-slate-400 block">Show in top navigation</span>
+                            </div>
+                        </label>
+
+                        <label class="flex items-center p-3 rounded-2xl border border-slate-200 bg-slate-50/50 hover:bg-slate-50 cursor-pointer transition-colors">
+                            <input type="checkbox" 
+                                   name="show_on_home" 
+                                   value="1" 
+                                   {{ old('show_on_home', '1') == '1' ? 'checked' : '' }}
+                                   class="rounded border-slate-300 text-rose-600 focus:ring-rose-500">
+                            <div class="ml-2.5">
+                                <span class="text-xs font-bold text-slate-800 block">Homepage Grid</span>
+                                <span class="text-[10px] text-slate-400 block">Show in Shop by Category</span>
+                            </div>
+                        </label>
+                    </div>
                 </div>
             </div>
         </div>

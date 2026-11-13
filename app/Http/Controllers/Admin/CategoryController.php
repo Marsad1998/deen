@@ -74,6 +74,8 @@ class CategoryController extends Controller
             'meta_description'  => ['nullable', 'string'],
             'sort_order'        => ['nullable', 'integer', 'min:0'],
             'is_active'         => ['nullable', 'boolean'],
+            'show_in_nav'       => ['nullable', 'boolean'],
+            'show_on_home'      => ['nullable', 'boolean'],
             'image'             => ['nullable', 'image', 'mimes:jpeg,png,jpg,webp,svg', 'max:4096'],
             'image_url'         => ['nullable', 'string', 'max:500'],
         ]);
@@ -112,6 +114,8 @@ class CategoryController extends Controller
             'meta_description'  => $validated['meta_description'] ?? null,
             'sort_order'        => $validated['sort_order'] ?? 0,
             'is_active'         => $request->boolean('is_active', true),
+            'show_in_nav'       => $request->boolean('show_in_nav'),
+            'show_on_home'      => $request->boolean('show_on_home', true),
         ]);
 
         $this->auditLogService->log(
@@ -156,6 +160,8 @@ class CategoryController extends Controller
             'meta_description'  => ['nullable', 'string'],
             'sort_order'        => ['nullable', 'integer', 'min:0'],
             'is_active'         => ['nullable', 'boolean'],
+            'show_in_nav'       => ['nullable', 'boolean'],
+            'show_on_home'      => ['nullable', 'boolean'],
             'image'             => ['nullable', 'image', 'mimes:jpeg,png,jpg,webp,svg', 'max:4096'],
             'image_url'         => ['nullable', 'string', 'max:500'],
         ]);
@@ -188,6 +194,8 @@ class CategoryController extends Controller
             'meta_description'  => $validated['meta_description'] ?? null,
             'sort_order'        => $validated['sort_order'] ?? 0,
             'is_active'         => $request->boolean('is_active', true),
+            'show_in_nav'       => $request->boolean('show_in_nav'),
+            'show_on_home'      => $request->boolean('show_on_home', true),
         ]);
 
         $this->auditLogService->log(

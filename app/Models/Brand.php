@@ -19,14 +19,26 @@ class Brand extends Model
         'meta_description',
         'sort_order',
         'is_active',
+        'show_on_home',
     ];
 
     protected function casts(): array
     {
         return [
             'is_active' => 'boolean',
+            'show_on_home' => 'boolean',
             'sort_order' => 'integer',
         ];
+    }
+
+    /**
+     * Scope for brands displayed on storefront homepage.
+     */
+    public function scopeHomepage($query)
+    {
+        return $query->where('is_active', true)
+            ->where('show_on_home', true)
+            ->orderBy('sort_order');
     }
 
     public function products(): HasMany

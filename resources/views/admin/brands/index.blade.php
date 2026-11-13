@@ -93,6 +93,13 @@
                                         @if($brand->description)
                                             <div class="text-[10px] text-slate-400 line-clamp-1 max-w-xs">{{ $brand->description }}</div>
                                         @endif
+                                        <div class="flex items-center space-x-1.5 mt-0.5">
+                                            @if($brand->show_on_home)
+                                                <span class="px-1.5 py-0.5 rounded text-[9px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                                                    Home Showcase
+                                                </span>
+                                            @endif
+                                        </div>
                                     </div>
                                 </div>
                             </td>

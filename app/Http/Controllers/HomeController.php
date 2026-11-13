@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
 use App\Services\HeroCmsService;
@@ -14,9 +15,15 @@ class HomeController extends Controller
      */
     public function index(HeroCmsService $heroCmsService): View
     {
-        $categories = Category::where('is_active', true)
-            ->orderBy('sort_order')
-            ->get();
+        $cmsSections = $heroCmsService->getDisplaySectionsConfig();
+
+        $categories = $cmsSections['categories_enabled']
+            ? Category::homepage()->get()
+            : collect();
+
+        $brands = $cmsSections['brands_enabled']
+            ? Brand::homepage()->get()
+            : collect();
 
         $featuredProducts = Product::with(['category', 'brand', 'defaultVariant', 'primaryMedia'])
             ->active()
@@ -40,7 +47,9 @@ class HomeController extends Controller
             'promoConfig'      => $promoConfig,
             'trustConfig'      => $trustConfig,
             'aboutConfig'      => $aboutConfig,
+            'cmsSections'      => $cmsSections,
             'categories'       => $categories,
+            'brands'           => $brands,
             'featuredProducts' => $featuredProducts,
             'latestProducts'   => $latestProducts,
             'contactPhone'     => $aboutConfig['phone'],

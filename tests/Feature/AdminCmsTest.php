@@ -40,7 +40,9 @@ class AdminCmsTest extends TestCase
     protected function tearDown(): void
     {
         Admin::where('username', 'LIKE', 'cms_admin_%')->delete();
-        StoreSetting::whereIn('setting_group', ['cms_hero', 'cms_promo', 'cms_trust', 'cms_about'])->delete();
+        StoreSetting::whereIn('setting_group', ['cms_hero', 'cms_promo', 'cms_trust', 'cms_about', 'cms_sections'])->delete();
+        \App\Models\Category::query()->update(['show_on_home' => true, 'show_in_nav' => true]);
+        \App\Models\Brand::query()->update(['show_on_home' => true]);
 
         parent::tearDown();
     }
@@ -378,5 +380,56 @@ class AdminCmsTest extends TestCase
         $homeResponse->assertSee('Authentic Showroom');
         $homeResponse->assertSee('DEEN Electronics Lahore Mega Store');
         $homeResponse->assertSee('09:30 AM – 10:30 PM (7 Days a Week)');
+    }
+
+    public function test_admin_can_view_and_update_display_sections_for_navbar_and_homepage(): void
+    {
+        $category = \App\Models\Category::first();
+        $brand = \App\Models\Brand::first();
+
+        $response = $this->actingAs($this->superAdmin, 'admin')
+            ->get('/admin/cms/display');
+
+        $response->assertStatus(200);
+        $response->assertSee('Desktop Navbar Categories');
+        $response->assertSee('Official Brand Partners Showcase');
+
+        $payload = [
+            'categories_title'    => 'Featured Lahore Collections',
+            'categories_subtitle' => 'Explore verified home essentials.',
+            'categories_enabled'  => 1,
+            'brands_title'        => 'Authorized Manufacturers',
+            'brands_subtitle'     => 'Direct from official Pakistan distributors.',
+            'brands_enabled'      => 1,
+            'nav_category_ids'    => [$category->id],
+            'home_category_ids'   => [$category->id],
+            'home_brand_ids'      => [$brand->id],
+        ];
+
+        $postResponse = $this->actingAs($this->superAdmin, 'admin')
+            ->post('/admin/cms/display', $payload);
+
+        $postResponse->assertStatus(302);
+        $postResponse->assertRedirect('/admin/cms/display');
+
+        $this->assertEquals('Featured Lahore Collections', StoreSetting::get('cms_categories_title'));
+        $this->assertEquals('Authorized Manufacturers', StoreSetting::get('cms_brands_title'));
+
+        // Category checks
+        $category->refresh();
+        $this->assertTrue($category->show_in_nav);
+        $this->assertTrue($category->show_on_home);
+
+        // Brand checks
+        $brand->refresh();
+        $this->assertTrue($brand->show_on_home);
+
+        // Storefront reflection
+        $homeResponse = $this->get('/');
+        $homeResponse->assertStatus(200);
+        $homeResponse->assertSee('Featured Lahore Collections');
+        $homeResponse->assertSee('Authorized Manufacturers');
+        $homeResponse->assertSee($category->name);
+        $homeResponse->assertSee($brand->name);
     }
 }

@@ -2,6 +2,8 @@
 
 namespace App\Services;
 
+use App\Models\Brand;
+use App\Models\Category;
 use App\Models\Product;
 use App\Models\StoreSetting;
 use Illuminate\Http\UploadedFile;
@@ -464,5 +466,67 @@ class HeroCmsService
         if (isset($data['whatsapp_url'])) StoreSetting::set('about_whatsapp_url', trim($data['whatsapp_url']), 'cms_about');
 
         return $this->getAboutConfig();
+    }
+
+    /**
+     * Get Categories and Brands display configuration.
+     *
+     * @return array<string, mixed>
+     */
+    public function getDisplaySectionsConfig(): array
+    {
+        return [
+            'categories_title'    => StoreSetting::get('cms_categories_title', 'Shop by Category'),
+            'categories_subtitle' => StoreSetting::get('cms_categories_subtitle', 'Confirmed catalogue categories across home appliances, cooling, TVs, and personal transit.'),
+            'categories_enabled'  => (bool) StoreSetting::get('cms_categories_enabled', true),
+            'brands_title'        => StoreSetting::get('cms_brands_title', 'Official Brand Partners & Authorized Distributors'),
+            'brands_subtitle'     => StoreSetting::get('cms_brands_subtitle', 'Genuine Pakistani and international electronics brands with manufacturer-backed warranty.'),
+            'brands_enabled'      => (bool) StoreSetting::get('cms_brands_enabled', true),
+        ];
+    }
+
+    /**
+     * Update Categories and Brands display configuration.
+     *
+     * @param array<string, mixed> $data
+     * @return array<string, mixed>
+     */
+    public function updateDisplaySectionsConfig(array $data): array
+    {
+        if (isset($data['categories_title'])) {
+            StoreSetting::set('cms_categories_title', trim($data['categories_title']), 'cms_sections');
+        }
+        if (isset($data['categories_subtitle'])) {
+            StoreSetting::set('cms_categories_subtitle', trim($data['categories_subtitle']), 'cms_sections');
+        }
+        StoreSetting::set('cms_categories_enabled', ! empty($data['categories_enabled']), 'cms_sections');
+
+        if (isset($data['brands_title'])) {
+            StoreSetting::set('cms_brands_title', trim($data['brands_title']), 'cms_sections');
+        }
+        if (isset($data['brands_subtitle'])) {
+            StoreSetting::set('cms_brands_subtitle', trim($data['brands_subtitle']), 'cms_sections');
+        }
+        StoreSetting::set('cms_brands_enabled', ! empty($data['brands_enabled']), 'cms_sections');
+
+        // Update nav categories if provided
+        if (isset($data['nav_category_ids']) && is_array($data['nav_category_ids'])) {
+            Category::query()->update(['show_in_nav' => false]);
+            Category::whereIn('id', $data['nav_category_ids'])->update(['show_in_nav' => true]);
+        }
+
+        // Update homepage categories if provided
+        if (isset($data['home_category_ids']) && is_array($data['home_category_ids'])) {
+            Category::query()->update(['show_on_home' => false]);
+            Category::whereIn('id', $data['home_category_ids'])->update(['show_on_home' => true]);
+        }
+
+        // Update homepage brands if provided
+        if (isset($data['home_brand_ids']) && is_array($data['home_brand_ids'])) {
+            Brand::query()->update(['show_on_home' => false]);
+            Brand::whereIn('id', $data['home_brand_ids'])->update(['show_on_home' => true]);
+        }
+
+        return $this->getDisplaySectionsConfig();
     }
 }

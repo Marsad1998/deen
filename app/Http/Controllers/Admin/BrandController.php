@@ -65,6 +65,7 @@ class BrandController extends Controller
             'meta_description' => ['nullable', 'string'],
             'sort_order'       => ['nullable', 'integer', 'min:0'],
             'is_active'        => ['nullable', 'boolean'],
+            'show_on_home'     => ['nullable', 'boolean'],
             'logo'             => ['nullable', 'image', 'mimes:jpeg,png,jpg,webp,svg', 'max:4096'],
             'logo_url'         => ['nullable', 'string', 'max:500'],
         ]);
@@ -99,6 +100,7 @@ class BrandController extends Controller
             'meta_description' => $validated['meta_description'] ?? null,
             'sort_order'       => $validated['sort_order'] ?? 0,
             'is_active'        => $request->boolean('is_active', true),
+            'show_on_home'     => $request->boolean('show_on_home', true),
         ]);
 
         $this->auditLogService->log(
@@ -135,6 +137,7 @@ class BrandController extends Controller
             'meta_description' => ['nullable', 'string'],
             'sort_order'       => ['nullable', 'integer', 'min:0'],
             'is_active'        => ['nullable', 'boolean'],
+            'show_on_home'     => ['nullable', 'boolean'],
             'logo'             => ['nullable', 'image', 'mimes:jpeg,png,jpg,webp,svg', 'max:4096'],
             'logo_url'         => ['nullable', 'string', 'max:500'],
         ]);
@@ -164,6 +167,7 @@ class BrandController extends Controller
             'meta_description' => $validated['meta_description'] ?? null,
             'sort_order'       => $validated['sort_order'] ?? 0,
             'is_active'        => $request->boolean('is_active', true),
+            'show_on_home'     => $request->boolean('show_on_home', true),
         ]);
 
         $this->auditLogService->log(

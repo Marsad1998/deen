@@ -210,42 +210,14 @@
                        class="transition-colors pb-0.5 {{ !request('category') ? 'text-rose-600 font-bold border-b-2 border-rose-600' : 'text-slate-700 hover:text-rose-600' }}">
                         All Products
                     </a>
-                    <a href="{{ route('storefront.catalog', ['category' => 'home-appliances']) }}" 
-                       class="transition-colors pb-0.5 {{ request('category') === 'home-appliances' ? 'text-rose-600 font-bold border-b-2 border-rose-600' : 'text-slate-700 hover:text-rose-600' }}">
-                        Home Appliances
-                    </a>
-                    <a href="{{ route('storefront.catalog', ['category' => 'air-conditioners']) }}" 
-                       class="transition-colors pb-0.5 {{ request('category') === 'air-conditioners' ? 'text-rose-600 font-bold border-b-2 border-rose-600' : 'text-slate-700 hover:text-rose-600' }}">
-                        Air Conditioners
-                    </a>
-                    <a href="{{ route('storefront.catalog', ['category' => 'refrigerators-freezers']) }}" 
-                       class="transition-colors pb-0.5 {{ request('category') === 'refrigerators-freezers' ? 'text-rose-600 font-bold border-b-2 border-rose-600' : 'text-slate-700 hover:text-rose-600' }}">
-                        Refrigerators
-                    </a>
-                    <a href="{{ route('storefront.catalog', ['category' => 'washing-machines']) }}" 
-                       class="transition-colors pb-0.5 {{ request('category') === 'washing-machines' ? 'text-rose-600 font-bold border-b-2 border-rose-600' : 'text-slate-700 hover:text-rose-600' }}">
-                        Washing Machines
-                    </a>
-                    <a href="{{ route('storefront.catalog', ['category' => 'led-tvs']) }}" 
-                       class="transition-colors pb-0.5 {{ request('category') === 'led-tvs' ? 'text-rose-600 font-bold border-b-2 border-rose-600' : 'text-slate-700 hover:text-rose-600' }}">
-                        LED TVs
-                    </a>
-                    <a href="{{ route('storefront.catalog', ['category' => 'kitchen-appliances']) }}" 
-                       class="transition-colors pb-0.5 {{ request('category') === 'kitchen-appliances' ? 'text-rose-600 font-bold border-b-2 border-rose-600' : 'text-slate-700 hover:text-rose-600' }}">
-                        Kitchen Appliances
-                    </a>
-                    <a href="{{ route('storefront.catalog', ['category' => 'fans']) }}" 
-                       class="transition-colors pb-0.5 {{ request('category') === 'fans' ? 'text-rose-600 font-bold border-b-2 border-rose-600' : 'text-slate-700 hover:text-rose-600' }}">
-                        Fans
-                    </a>
-                    <a href="{{ route('storefront.catalog', ['category' => 'geysers-water-dispensers']) }}" 
-                       class="transition-colors pb-0.5 {{ request('category') === 'geysers-water-dispensers' ? 'text-rose-600 font-bold border-b-2 border-rose-600' : 'text-slate-700 hover:text-rose-600' }}">
-                        Geysers & Dispensers
-                    </a>
-                    <a href="{{ route('storefront.catalog', ['category' => 'scooters']) }}" 
-                       class="transition-colors pb-0.5 {{ request('category') === 'scooters' ? 'text-rose-600 font-bold border-b-2 border-rose-600' : 'text-slate-700 hover:text-rose-600' }}">
-                        Scooters
-                    </a>
+                    @if(isset($navCategories))
+                        @foreach($navCategories as $navCat)
+                            <a href="{{ route('storefront.catalog', ['category' => $navCat->slug]) }}" 
+                               class="transition-colors pb-0.5 {{ request('category') === $navCat->slug ? 'text-rose-600 font-bold border-b-2 border-rose-600' : 'text-slate-700 hover:text-rose-600' }}">
+                                {{ $navCat->name }}
+                            </a>
+                        @endforeach
+                    @endif
                 </nav>
             </div>
         </div>

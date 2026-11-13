@@ -191,17 +191,14 @@
         </div>
     </section>
 
-            </div>
-        </div>
-    </section>
-
     <!-- 3. Shop by Category (Clean Retail Cards) -->
+    @if(!isset($cmsSections['categories_enabled']) || $cmsSections['categories_enabled'])
     <section class="py-12 sm:py-16 bg-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-8 gap-3">
                 <div>
-                    <h2 class="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">Shop by Category</h2>
-                    <p class="text-xs sm:text-sm text-slate-500 mt-1">Confirmed catalogue categories across home appliances, cooling, TVs, and personal transit.</p>
+                    <h2 class="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">{{ $cmsSections['categories_title'] ?? 'Shop by Category' }}</h2>
+                    <p class="text-xs sm:text-sm text-slate-500 mt-1">{{ $cmsSections['categories_subtitle'] ?? 'Confirmed catalogue categories across home appliances, cooling, TVs, and personal transit.' }}</p>
                 </div>
                 <a href="{{ route('storefront.catalog') }}" class="text-xs font-bold text-rose-600 hover:text-rose-700 flex items-center space-x-1 transition-colors">
                     <span>View Full Catalogue</span>
@@ -269,6 +266,50 @@
             </div>
         </div>
     </section>
+    @endif
+
+    <!-- 3.1. Official Brand Partners & Authorized Distributors -->
+    @if((!isset($cmsSections['brands_enabled']) || $cmsSections['brands_enabled']) && isset($brands) && $brands->isNotEmpty())
+    <section class="py-10 sm:py-12 bg-slate-50 border-t border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-6 sm:mb-8 gap-3">
+                <div>
+                    <div class="inline-flex items-center space-x-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-slate-200 text-slate-800 mb-1.5">
+                        <svg class="w-3.5 h-3.5 text-rose-600" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                        <span>Official Brand Partners</span>
+                    </div>
+                    <h2 class="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">{{ $cmsSections['brands_title'] ?? 'Authorized Brand Partners' }}</h2>
+                    <p class="text-xs sm:text-sm text-slate-500 mt-1">{{ $cmsSections['brands_subtitle'] ?? 'Direct distributor warranties and official service support across Pakistan\'s top electronics manufacturers.' }}</p>
+                </div>
+                <a href="{{ route('storefront.catalog') }}" class="text-xs font-bold text-slate-700 hover:text-rose-600 flex items-center space-x-1 transition-colors">
+                    <span>Browse All Brands</span>
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                </a>
+            </div>
+
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 sm:gap-4">
+                @foreach($brands as $brand)
+                    <a href="{{ route('storefront.catalog', ['brand' => $brand->slug]) }}" 
+                       class="group bg-white rounded-2xl p-4 border border-slate-200 hover:border-rose-400 hover:shadow-md transition-all flex flex-col items-center justify-center text-center min-h-[110px]">
+                        @if($brand->logo_url && file_exists(public_path($brand->logo_url)))
+                            <img src="{{ asset($brand->logo_url) }}" alt="{{ $brand->name }}" class="h-10 max-w-[120px] object-contain filter grayscale group-hover:grayscale-0 transition-all">
+                        @else
+                            <div class="w-12 h-12 rounded-xl bg-slate-100 group-hover:bg-rose-50 text-slate-700 group-hover:text-rose-600 font-black text-base flex items-center justify-center transition-colors mb-2">
+                                {{ strtoupper(substr($brand->name, 0, 2)) }}
+                            </div>
+                        @endif
+                        <span class="text-xs font-bold text-slate-800 group-hover:text-rose-600 transition-colors mt-1">
+                            {{ $brand->name }}
+                        </span>
+                        <span class="text-[10px] text-slate-400">
+                            Authorized Partner
+                        </span>
+                    </a>
+                @endforeach
+            </div>
+        </div>
+    </section>
+    @endif
 
     <!-- 3.5. Retail Promotional Banner (Configurable in CMS) -->
     @if(!empty($promoConfig['is_enabled']))

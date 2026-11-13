@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
 use App\Services\AuditLogService;
@@ -256,5 +257,58 @@ class CmsController extends Controller
 
         return redirect()->route('admin.cms.about')
             ->with('status', 'Showroom Context, Timings, and Location Details updated successfully!');
+    }
+
+    /**
+     * Display Homepage Categories & Brands display management form.
+     */
+    public function displaySections(): View
+    {
+        $displayConfig = $this->heroCmsService->getDisplaySectionsConfig();
+        $categories = Category::where('is_active', true)->orderBy('sort_order')->get();
+        $brands = Brand::where('is_active', true)->orderBy('sort_order')->get();
+
+        return view('admin.cms.display', compact('displayConfig', 'categories', 'brands'));
+    }
+
+    /**
+     * Update Homepage Categories & Brands display configuration.
+     */
+    public function updateDisplaySections(Request $request): RedirectResponse
+    {
+        $rules = [
+            'categories_title'    => ['nullable', 'string', 'max:150'],
+            'categories_subtitle' => ['nullable', 'string', 'max:500'],
+            'categories_enabled'  => ['nullable', 'boolean'],
+            'brands_title'        => ['nullable', 'string', 'max:150'],
+            'brands_subtitle'     => ['nullable', 'string', 'max:500'],
+            'brands_enabled'      => ['nullable', 'boolean'],
+            'nav_category_ids'    => ['nullable', 'array'],
+            'nav_category_ids.*'  => ['integer', 'exists:categories,id'],
+            'home_category_ids'   => ['nullable', 'array'],
+            'home_category_ids.*' => ['integer', 'exists:categories,id'],
+            'home_brand_ids'      => ['nullable', 'array'],
+            'home_brand_ids.*'    => ['integer', 'exists:brands,id'],
+        ];
+
+        $validated = $request->validate($rules);
+        $admin = Auth::guard('admin')->user();
+
+        $this->heroCmsService->updateDisplaySectionsConfig($validated);
+
+        $this->auditLogService->log(
+            action: 'cms.display_sections_updated',
+            entity: 'StoreSetting',
+            entityId: null,
+            changes: [
+                'nav_categories_count' => count($validated['nav_category_ids'] ?? []),
+                'home_categories_count' => count($validated['home_category_ids'] ?? []),
+                'home_brands_count' => count($validated['home_brand_ids'] ?? []),
+            ],
+            adminId: $admin?->id
+        );
+
+        return redirect()->route('admin.cms.display')
+            ->with('status', 'Homepage Categories, Brands & Navigation display settings updated successfully!');
     }
 }

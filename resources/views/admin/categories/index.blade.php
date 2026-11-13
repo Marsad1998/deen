@@ -93,11 +93,23 @@
                                         @if($category->parent)
                                             <div class="text-[10px] text-slate-400">Parent: {{ $category->parent->name }}</div>
                                         @endif
-                                        @if($category->badge_text)
-                                            <span class="inline-block mt-0.5 px-1.5 py-0.5 rounded text-[9px] font-bold bg-amber-50 text-amber-700 border border-amber-200">
-                                                {{ $category->badge_text }}
-                                            </span>
-                                        @endif
+                                        <div class="flex items-center space-x-1.5 mt-0.5">
+                                            @if($category->badge_text)
+                                                <span class="px-1.5 py-0.5 rounded text-[9px] font-bold bg-amber-50 text-amber-700 border border-amber-200">
+                                                    {{ $category->badge_text }}
+                                                </span>
+                                            @endif
+                                            @if($category->show_in_nav)
+                                                <span class="px-1.5 py-0.5 rounded text-[9px] font-bold bg-indigo-50 text-indigo-700 border border-indigo-200">
+                                                    In Nav
+                                                </span>
+                                            @endif
+                                            @if($category->show_on_home)
+                                                <span class="px-1.5 py-0.5 rounded text-[9px] font-bold bg-rose-50 text-rose-700 border border-rose-200">
+                                                    Home
+                                                </span>
+                                            @endif
+                                        </div>
                                     </div>
                                 </div>
                             </td>

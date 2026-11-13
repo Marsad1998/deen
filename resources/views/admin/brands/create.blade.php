@@ -120,16 +120,35 @@
                            class="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-slate-900 text-xs sm:text-sm focus:outline-none focus:border-rose-600">
                 </div>
 
-                <!-- Active Status -->
-                <div class="flex items-center pt-6">
-                    <label class="inline-flex items-center space-x-2.5 cursor-pointer">
-                        <input type="checkbox" 
-                               name="is_active" 
-                               value="1" 
-                               {{ old('is_active', '1') == '1' ? 'checked' : '' }}
-                               class="rounded border-slate-300 text-rose-600 focus:ring-rose-500">
-                        <span class="text-xs font-bold text-slate-800">Show brand in catalogue filters</span>
-                    </label>
+                <!-- Active Status & Homepage Showcase -->
+                <div class="sm:col-span-2 pt-4 border-t border-slate-100 space-y-3">
+                    <span class="block text-xs font-bold text-slate-700 uppercase tracking-wider">Storefront Placements &amp; Visibility</span>
+                    
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <label class="flex items-center p-3 rounded-2xl border border-slate-200 bg-slate-50/50 hover:bg-slate-50 cursor-pointer transition-colors">
+                            <input type="checkbox" 
+                                   name="is_active" 
+                                   value="1" 
+                                   {{ old('is_active', '1') == '1' ? 'checked' : '' }}
+                                   class="rounded border-slate-300 text-rose-600 focus:ring-rose-500">
+                            <div class="ml-2.5">
+                                <span class="text-xs font-bold text-slate-800 block">Catalogue Filter Active</span>
+                                <span class="text-[10px] text-slate-400 block">Available in store search and filters</span>
+                            </div>
+                        </label>
+
+                        <label class="flex items-center p-3 rounded-2xl border border-slate-200 bg-slate-50/50 hover:bg-slate-50 cursor-pointer transition-colors">
+                            <input type="checkbox" 
+                                   name="show_on_home" 
+                                   value="1" 
+                                   {{ old('show_on_home', '1') == '1' ? 'checked' : '' }}
+                                   class="rounded border-slate-300 text-emerald-600 focus:ring-emerald-500">
+                            <div class="ml-2.5">
+                                <span class="text-xs font-bold text-slate-800 block">Homepage Brand Partner</span>
+                                <span class="text-[10px] text-slate-400 block">Show in Authorized Partners showcase</span>
+                            </div>
+                        </label>
+                    </div>
                 </div>
             </div>
         </div>

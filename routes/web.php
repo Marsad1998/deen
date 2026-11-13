@@ -128,6 +128,8 @@ Route::prefix('admin')->middleware(['admin.auth'])->group(function () {
         Route::post('/trust', [CmsController::class, 'updateTrustFeatures'])->name('admin.cms.trust.update');
         Route::get('/about', [CmsController::class, 'showroomAbout'])->name('admin.cms.about');
         Route::post('/about', [CmsController::class, 'updateShowroomAbout'])->name('admin.cms.about.update');
+        Route::get('/display', [CmsController::class, 'displaySections'])->name('admin.cms.display');
+        Route::post('/display', [CmsController::class, 'updateDisplaySections'])->name('admin.cms.display.update');
     });
 
     // Store Configuration & Settings
