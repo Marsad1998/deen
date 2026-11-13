@@ -143,40 +143,8 @@
                             :class="currentSlide === {{ $index }} ? 'bg-rose-600 w-7 sm:w-8' : 'bg-white/40 hover:bg-white/70 w-2.5 sm:w-3'"
                             class="h-2.5 sm:h-3 rounded-full transition-all duration-300 focus:outline-none"
                             title="Slide {{ $index + 1 }}: {{ $slide['title'] }}"
-                            aria-label="Go to Slide {{ $index + 1 }}"></button>
+                            aria-label="Go to slide {{ $index + 1 }}"></button>
                 @endforeach
-            </div>
-
-            <!-- Next Button -->
-            <button type="button" 
-                    @click="nextSlide(); resetTimer();" 
-                    aria-label="Next Slide"
-                    class="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-slate-900/70 hover:bg-rose-600 text-white border border-white/20 backdrop-blur-xs flex items-center justify-center transition-all hover:scale-105 shadow-md">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
-            </button>
-        </div>
-    </section>
-            <button type="button" 
-                    @click="prevSlide(); resetTimer();" 
-                    aria-label="Previous Slide"
-                    class="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-slate-900/70 hover:bg-rose-600 text-white border border-white/20 backdrop-blur-xs flex items-center justify-center transition-all hover:scale-105 shadow-md">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"/></svg>
-            </button>
-
-            <!-- 4 Slide Indicator Pills -->
-            <div class="flex items-center space-x-1.5 bg-slate-900/70 backdrop-blur-xs px-3 py-1.5 rounded-full border border-white/15">
-                <button type="button" @click="goToSlide(0)" aria-label="Go to slide 1"
-                        class="h-2 rounded-full transition-all duration-300"
-                        :class="currentSlide === 0 ? 'w-6 bg-rose-500' : 'w-2 bg-white/40 hover:bg-white/80'"></button>
-                <button type="button" @click="goToSlide(1)" aria-label="Go to slide 2"
-                        class="h-2 rounded-full transition-all duration-300"
-                        :class="currentSlide === 1 ? 'w-6 bg-rose-500' : 'w-2 bg-white/40 hover:bg-white/80'"></button>
-                <button type="button" @click="goToSlide(2)" aria-label="Go to slide 3"
-                        class="h-2 rounded-full transition-all duration-300"
-                        :class="currentSlide === 2 ? 'w-6 bg-rose-500' : 'w-2 bg-white/40 hover:bg-white/80'"></button>
-                <button type="button" @click="goToSlide(3)" aria-label="Go to slide 4"
-                        class="h-2 rounded-full transition-all duration-300"
-                        :class="currentSlide === 3 ? 'w-6 bg-rose-500' : 'w-2 bg-white/40 hover:bg-white/80'"></button>
             </div>
 
             <!-- Next Button -->
