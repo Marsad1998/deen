@@ -24,7 +24,7 @@ class StorefrontProductController extends Controller
         if ($categorySlug = $request->input('category')) {
             $currentCategory = Category::where('slug', $categorySlug)->first();
             if ($currentCategory) {
-                $query->where('category_id', $currentCategory->id);
+                $query->where('products.category_id', $currentCategory->id);
             }
         }
 
@@ -33,7 +33,7 @@ class StorefrontProductController extends Controller
         if ($brandSlug = $request->input('brand')) {
             $currentBrand = Brand::where('slug', $brandSlug)->first();
             if ($currentBrand) {
-                $query->where('brand_id', $currentBrand->id);
+                $query->where('products.brand_id', $currentBrand->id);
             }
         }
 
@@ -65,14 +65,14 @@ class StorefrontProductController extends Controller
         // 5. Official Warranty Filter
         $hasWarranty = $request->boolean('has_warranty');
         if ($hasWarranty) {
-            $query->whereNotNull('warranty_text')
-                  ->where('warranty_text', '!=', '');
+            $query->whereNotNull('products.warranty_text')
+                  ->where('products.warranty_text', '!=', '');
         }
 
         // 6. Featured / Deals Filter
         $featuredOnly = $request->boolean('featured');
         if ($featuredOnly) {
-            $query->where('is_featured', true);
+            $query->where('products.is_featured', true);
         }
 
         // 7. Delivery / Serviceability Type Filter
@@ -106,9 +106,9 @@ class StorefrontProductController extends Controller
                      ->where('sort_pv.is_default', '=', 1);
             })->orderBy('sort_pv.price', 'desc')->select('products.*');
         } elseif ($sortBy === 'name') {
-            $query->orderBy('name', 'asc');
+            $query->orderBy('products.name', 'asc');
         } else {
-            $query->orderBy('created_at', 'desc');
+            $query->orderBy('products.created_at', 'desc');
         }
 
         $products = $query->paginate(12)->withQueryString();

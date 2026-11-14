@@ -537,4 +537,16 @@ class ProductCatalogTest extends TestCase
         $variant->refresh();
         $this->assertEquals(35, $variant->stock_quantity, 'Stock quantity must remain unchanged after rejected adjustment');
     }
+
+    public function test_storefront_catalog_can_filter_by_category_and_sort_by_price_without_ambiguous_column_error(): void
+    {
+        $response = $this->get('/catalog?category=' . $this->category->slug . '&sort=price_high');
+        $response->assertStatus(200);
+
+        $responseLow = $this->get('/catalog?category=' . $this->category->slug . '&sort=price_low');
+        $responseLow->assertStatus(200);
+
+        $responseName = $this->get('/catalog?category=' . $this->category->slug . '&sort=name');
+        $responseName->assertStatus(200);
+    }
 }

@@ -83,12 +83,13 @@ class Product extends Model
 
     public function scopeActive(Builder $query): Builder
     {
-        return $query->where('is_active', true)->whereNull('archived_at');
+        return $query->where($this->qualifyColumn('is_active'), true)
+                     ->whereNull($this->qualifyColumn('archived_at'));
     }
 
     public function scopeArchived(Builder $query): Builder
     {
-        return $query->whereNotNull('archived_at');
+        return $query->whereNotNull($this->qualifyColumn('archived_at'));
     }
 
     public function scopeSearch(Builder $query, ?string $term): Builder
@@ -100,9 +101,9 @@ class Product extends Model
         $clean = trim($term);
 
         return $query->where(function (Builder $q) use ($clean) {
-            $q->where('name', 'LIKE', "%{$clean}%")
-              ->orWhere('slug', 'LIKE', "%{$clean}%")
-              ->orWhere('sku', 'LIKE', "%{$clean}%")
+            $q->where($this->qualifyColumn('name'), 'LIKE', "%{$clean}%")
+              ->orWhere($this->qualifyColumn('slug'), 'LIKE', "%{$clean}%")
+              ->orWhere($this->qualifyColumn('sku'), 'LIKE', "%{$clean}%")
               ->orWhereHas('variants', function (Builder $vq) use ($clean) {
                   $vq->where('sku', 'LIKE', "%{$clean}%")
                      ->orWhere('name', 'LIKE', "%{$clean}%");
