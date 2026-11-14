@@ -26,18 +26,18 @@ class AdminAuthenticate
 
         $admin = $guard->user();
 
-        // Enforce active account status
-        if (! $admin->is_active) {
+        // Enforce active account status and administrative role
+        if (! $admin->is_active || ! $admin->role_id) {
             $guard->logout();
             $request->session()->invalidate();
             $request->session()->regenerateToken();
 
             if ($request->expectsJson()) {
-                return response()->json(['message' => 'Account is deactivated.'], 403);
+                return response()->json(['message' => 'Unauthorized administrative account.'], 403);
             }
 
             return redirect()->route('admin.login')->withErrors([
-                'username' => 'Your administrative account has been deactivated. Contact an administrator.',
+                'username' => 'Your account does not have administrative access.',
             ]);
         }
 

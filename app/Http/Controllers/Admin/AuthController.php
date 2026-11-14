@@ -80,13 +80,27 @@ class AuthController extends Controller
         ];
 
         if (Auth::guard('admin')->attempt($authAttempt, (bool) ($credentials['remember'] ?? false))) {
+            $admin = Auth::guard('admin')->user();
+
+            // Safeguard: Ensure user has an administrative role assigned
+            if (! $admin->role_id) {
+                Auth::guard('admin')->logout();
+                $request->session()->invalidate();
+                $request->session()->regenerateToken();
+
+                RateLimiter::hit($throttleKey, 60);
+
+                return back()->withInput($request->only('login', 'remember'))->withErrors([
+                    'login' => 'Access denied. Account does not have administrative privileges.',
+                ]);
+            }
+
             // Security: Clear rate limiter on successful authentication
             RateLimiter::clear($throttleKey);
 
             // Security: Prevent session fixation
             $request->session()->regenerate();
 
-            $admin = Auth::guard('admin')->user();
             $admin->update(['last_login_at' => now()]);
 
             // Record successful login audit log
